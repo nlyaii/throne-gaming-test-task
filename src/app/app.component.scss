@@ -1,16 +1,30 @@
-body{
+body {
   font-family: Roboto;
   background-size: cover;
   background: linear-gradient(135deg, #42455B 0%, #8B8EA9 100%);
 }
 
-.main-gallery{
+.main-gallery {
+  display: block;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  padding: .75rem;
+  .gallery-image {
+    display: inline-block;
+    img {
+      width: 150px;
+      float: left;
+      margin-right: 10px;
+      display: block;
+    }
+  }
 
-  .gallery-image{
-    margin: 0 auto;
-    text-align: center;
-    display: block;
-    height: 50%;
-    width: 50%;
+  img:hover {
+    box-shadow: 0 20px 40px -10px rgba(66, 69, 90, 0.15);
   }
 }

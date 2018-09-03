@@ -3,10 +3,13 @@
 </h3>
 
 <div class="main-gallery">
-  <img class="gallery-image" [src]="imageData">
-  <div class="arrow"></div>
-  <div class="arrow"></div>
-  <div class="m-p-g__fullscreen"></div>
+  <div class="gallery-image" *ngFor="let image of imageObject">
+    <a target="_blank" [href]="image">
+      <img [src]="image">
+      <slider>
+        <div class="arrow"></div>
+        <div class="arrow"></div>
+      </slider>
+    </a>
+  </div>
 </div>
-<footer>
-</footer>

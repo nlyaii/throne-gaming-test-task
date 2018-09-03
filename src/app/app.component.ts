@@ -1,22 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {ResponseContentType, Http} from "@angular/http";
-import { DomSanitizer } from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 import 'rxjs/add/operator/toPromise';
 
 
 @Component({
-  selector: 'app',
-  templateUrl: './app.component.html',
+    selector: 'app',
+    templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
 
 export class AppComponent implements OnInit {
-    private fetchUrl: string =  'https://images.pexels.com/photos/669013/pexels-photo-669013.jpeg?w=1260'
 
-    imageData: any;
-
-
-    images = [
+    private images: any = [
         {
             url: "https://images.pexels.com/photos/669013/pexels-photo-669013.jpeg?w=1260"
         },
@@ -25,28 +21,42 @@ export class AppComponent implements OnInit {
         },
         {
             url: "https://images.pexels.com/photos/669013/pexels-photo-669013.jpeg?w=1260"
+        },
+        {
+            url: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=1260"
+        },
+        {
+            url: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=1260"
+        },
+        {
+            url: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=1260"
         },
         {
             url: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=1260"
         },
     ]
 
-    constructor(private http: Http, private sanitizer: DomSanitizer) {}
+    imageData: any;
+    imageObject: any = []
 
-    //gets the init image
+    constructor(private http: Http, private sanitizer: DomSanitizer) {
+
+    }
+
+    //gets the list of images
     ngOnInit() {
-        this.getImage(this.fetchUrl)
+        this.getList()
     }
 
     //testing the object looping
     getList() {
         this.images.forEach(eachObj => {
-            console.log(eachObj.url);
+            this.getImage(eachObj.url)
         });
     }
 
     //main get image method
-    getImage(url){
+    getImage(url) {
         this.http.get(url, {
             responseType: ResponseContentType.Blob
         })
@@ -59,6 +69,7 @@ export class AppComponent implements OnInit {
                 let urlCreator = window.URL;
                 this.imageData = this.sanitizer.bypassSecurityTrustUrl(
                     urlCreator.createObjectURL(blob));
+                this.imageObject.push(this.imageData)
             });
     }
 }
