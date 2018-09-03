@@ -1,17 +1,14 @@
 {
-  "name": "angular2-seed",
+  "name": "TG-test-task",
   "version": "1.0.0",
-  "description": "A simple starter Angular2 project",
+  "description": "Throne Ga,ing Test Task",
+  "author": "Anna Teterina",
   "scripts": {
     "build": "rimraf dist && webpack --progress",
     "watch": "npm run build -- --watch",
     "server": "webpack-dev-server --inline --progress --port 3000 --content-base src",
     "start": "npm run server"
   },
-  "contributors": [
-    "Rob Wormald <robwormald@gmail.com>",
-    "PatrickJS <github@gdi2290.com>"
-  ],
   "license": "MIT",
   "dependencies": {
     "@angular/common": "~4.0.1",
@@ -55,7 +52,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/angular/angular2-seed.git"
+    "url": "git+https://github.com/nlyaii/throne-gaming-test-task.git"
   },
   "bugs": {
     "url": "https://github.com/angular/angular2-seed/issues"
