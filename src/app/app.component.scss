@@ -1,10 +1,15 @@
-body {
+html, body {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
   font-family: Roboto;
-  background-size: cover;
-  background: linear-gradient(135deg, #42455B 0%, #8B8EA9 100%);
 }
 
 .main-gallery {
+  padding: 40px 80px;
+  height: 100%;
+  background-size: cover;
+  background: linear-gradient(135deg, #42455B 0%, #8B8EA9 100%);
   display: block;
   -ms-flex-preferred-size: 0;
   flex-basis: 0;
@@ -13,18 +18,165 @@ body {
   flex-grow: 1;
   -ms-flex-negative: 1;
   flex-shrink: 1;
-  padding: .75rem;
+  hr {
+    background-color: #dbdbdb;
+    border: none;
+    display: block;
+    height: 1px;
+    margin: 2rem 0;
+  }
+  h3.header {
+    margin: 20px auto;
+    display: block;
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.125;
+  }
+
+  .sibling-fade {
+    visibility: hidden;
+  }
+  .sibling-fade > * {
+    visibility: visible;
+  }
+  .sibling-fade > * {
+    transition: opacity 150ms linear 100ms, transform 200ms ease-in-out 150ms;
+  }
+  .sibling-fade:hover > * {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+  .sibling-fade > *:hover {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 0ms, 0ms;
+  }
+
   .gallery-image {
+    transition: background 200ms ease-in-out;
     display: inline-block;
     img {
+      cursor: pointer;
       width: 150px;
       float: left;
       margin-right: 10px;
+      margin-bottom: 10px;
       display: block;
+    }
+    img:hover {
+      box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, .1);
+    }
+    .glow-wrap {
+      overflow: hidden;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      margin-top: -10px;
     }
   }
 
-  img:hover {
-    box-shadow: 0 20px 40px -10px rgba(66, 69, 90, 0.15);
+  .modal {
+    /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+  }
+
+  /* Modal Content (image) */
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+  }
+
+  /* Caption of Modal Image */
+  #caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+  }
+
+  /* Add Animation */
+  .modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+
+  @-webkit-keyframes zoom {
+    from {
+      -webkit-transform: scale(0)
+    }
+    to {
+      -webkit-transform: scale(1)
+    }
+  }
+
+  @keyframes zoom {
+    from {
+      transform: scale(0)
+    }
+    to {
+      transform: scale(1)
+    }
+  }
+
+  /* The Close Button */
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* 100% Image Width on Smaller Screens */
+  @media only screen and (max-width: 700px) {
+    .modal-content {
+      width: 100%;
+    }
+  }
+
+  .previous {
+    display: inline;
+    float: left;
+    margin-left: 80px;
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+  }
+
+  .next {
+    display: inline;
+    float: right;
+    font-size: 30px;
+    color: white;
+    margin-right: 80px;
+    text-decoration: none;
   }
 }

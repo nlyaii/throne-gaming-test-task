@@ -11,6 +11,9 @@ import 'rxjs/add/operator/toPromise';
 })
 
 export class AppComponent implements OnInit {
+    imageData: any;
+    imageObject: any = []
+    isModalVisible: boolean = false
 
     private images: any = [
         {
@@ -36,24 +39,23 @@ export class AppComponent implements OnInit {
         },
     ]
 
-    imageData: any;
-    imageObject: any = []
-
-    constructor(private http: Http, private sanitizer: DomSanitizer) {
-
-    }
+    constructor(private http: Http, private sanitizer: DomSanitizer) {}
 
     //gets the list of images
-    ngOnInit() {
-        this.getList()
+    ngOnInit() {this.getList()}
+
+
+    public toggleModal() {
+        this.isModalVisible = !this.isModalVisible;
     }
 
     //testing the object looping
-    getList() {
+    public getList(): void {
         this.images.forEach(eachObj => {
             this.getImage(eachObj.url)
         });
     }
+
 
     //main get image method
     getImage(url) {

@@ -1,15 +1,23 @@
-<h3>
-  Image Gallery
-</h3>
-
 <div class="main-gallery">
-  <div class="gallery-image" *ngFor="let image of imageObject">
-    <a target="_blank" [href]="image">
-      <img [src]="image">
-      <slider>
-        <div class="arrow"></div>
-        <div class="arrow"></div>
-      </slider>
-    </a>
-  </div>
+    <h3 class="header">
+        Image Gallery or something of this sort
+    </h3>
+    <hr>
+    <div class="sibling-fade">
+        <div class="gallery-image " *ngFor="let imageUrl of imageObject">
+            <a target="_blank" (click)="toggleModal()">
+                <img [src]="imageUrl">
+            </a>
+        </div>
+    </div>
+
+    <div *ngIf="isModalVisible">
+        <div id="galleryModal" class="modal">
+            <img [src]='imageObject[0]' class="modal-content" id="img01">
+            <a class="previous" href="imageObject[]">&lt;</a>
+            <a class="next" href="#pic3">&gt;</a>
+            <span class="close" (click)="toggleModal()" >&times;</span>
+        </div>
+    </div>
+
 </div>
