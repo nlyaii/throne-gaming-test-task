@@ -45,16 +45,16 @@ html, body {
     visibility: visible;
   }
   .sibling-fade > * {
-    transition: opacity 150ms linear 100ms, transform 200ms ease-in-out 150ms;
+    transition: opacity 500ms linear 500ms, transform 500ms ease-in-out 500ms;
   }
   .sibling-fade:hover > * {
     opacity: 0.4;
-    transform: scale(0.7);
+    transform: scale(0.8);
   }
   .sibling-fade > *:hover {
     opacity: 1;
     transform: scale(1);
-    transition-delay: 0ms, 0ms;
+    transition-delay: 10ms, 10ms;
   }
 
   .gallery-image {
@@ -177,6 +177,10 @@ html, body {
   }
 
   .thumbnail {
+    @media all and (max-width: 700px) {
+      margin: 0 auto;
+      display: block;
+    }
     position: relative;
     width: 200px;
     height: 200px;
@@ -206,6 +210,10 @@ html, body {
   }
 
   .arrow {
+    @media all and (max-width: 700px) {
+      width: 5vmin;
+      height: 5vmin;
+    }
     cursor: pointer;
     position: absolute;
     top: 50%;
@@ -235,6 +243,9 @@ html, body {
     }
   }
   .note {
+    @media all and (max-width: 700px) {
+      margin-top: 45px;
+    }
     margin-top: 20px;
     color: white;
     text-align: center;
