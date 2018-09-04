@@ -3,6 +3,12 @@
         Image Gallery or something of this sort
     </h3>
     <hr>
+    <div>
+        Count: {{ count }}
+        <button (click)="increment()">+</button>
+        <button (click)="decrement()">-</button>
+    </div>
+
     <div class="sibling-fade">
         <div class="gallery-image " *ngFor="let imageUrl of imageObject">
             <a target="_blank" (click)="toggleModal()">
@@ -12,8 +18,9 @@
     </div>
 
     <div *ngIf="isModalVisible">
+
         <div id="galleryModal" class="modal">
-            <img [src]='imageObject[0]' class="modal-content" id="img01">
+            <img [src]='imageObject[count]' class="modal-content" id="img01">
             <a class="previous" href="imageObject[]">&lt;</a>
             <a class="next" href="#pic3">&gt;</a>
             <span class="close" (click)="toggleModal()" >&times;</span>

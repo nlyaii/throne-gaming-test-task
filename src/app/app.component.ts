@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ResponseContentType, Http} from "@angular/http";
 import {DomSanitizer} from '@angular/platform-browser';
 import 'rxjs/add/operator/toPromise';
+import {NgRedux} from "@angular-redux/store";
+import {IAppState} from "../store";
 
 
 @Component({
@@ -14,6 +16,7 @@ export class AppComponent implements OnInit {
     imageData: any;
     imageObject: any = []
     isModalVisible: boolean = false
+    count: number;
 
     private images: any = [
         {
@@ -38,12 +41,16 @@ export class AppComponent implements OnInit {
             url: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=1260"
         },
     ]
+    subscription;
 
-    constructor(private http: Http, private sanitizer: DomSanitizer) {}
+    constructor(private http: Http, private sanitizer: DomSanitizer, private ngRedux: NgRedux<IAppState>) {
+        this.subscription = ngRedux.select<number>('imageCount')
+            .subscribe(newCount => this.count = newCount);
+        console.log(this.count)
+    }
 
     //gets the list of images
     ngOnInit() {this.getList()}
-
 
     public toggleModal() {
         this.isModalVisible = !this.isModalVisible;
@@ -56,6 +63,18 @@ export class AppComponent implements OnInit {
         });
     }
 
+    //actions
+    static INCREMENT = 'INCREMENT';
+    static DECREMENT = 'DECREMENT';
+
+    increment() {
+        console.log(this.count)
+        this.ngRedux.dispatch( { type: 'INCREMENT' });
+    }
+
+    decrement() {
+        this.ngRedux.dispatch({ type: 'DECREMENT' });
+    }
 
     //main get image method
     getImage(url) {
