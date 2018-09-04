@@ -82,6 +82,7 @@ html, body {
   }
 
   .modal {
+
     position: fixed;
     z-index: 1;
     padding-top: 100px;
@@ -95,6 +96,15 @@ html, body {
   }
 
   .modal-content {
+    &.fullscreen {
+      z-index: 8;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      max-width: 100%;
+    }
     margin: auto;
     display: block;
     width: 80%;
@@ -155,31 +165,16 @@ html, body {
     cursor: pointer;
   }
 
+  button {
+    border: none;
+    outline: none;
+  }
+
   @media only screen and (max-width: 700px) {
     .modal-content {
       width: 100%;
     }
   }
-
-  .previous {
-    display: inline;
-    float: left;
-    margin-left: 80px;
-    font-size: 30px;
-    color: white;
-    text-decoration: none;
-  }
-
-  .next {
-    display: inline;
-    float: right;
-    font-size: 30px;
-    color: white;
-    margin-right: 80px;
-    text-decoration: none;
-  }
-
-
 
   .thumbnail {
     position: relative;
@@ -193,12 +188,56 @@ html, body {
     top: 50%;
     height: 100%;
     width: auto;
-    -webkit-transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
   .thumbnail img.portrait {
     width: 100%;
     height: auto;
+  }
+
+  button:disabled,
+  button[disabled] {
+    &:hover {
+      border-color: darkgrey;
+      box-shadow: 0.5vmin -0.5vmin 0 white;
+    }
+  }
+
+  .arrow {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: 3vmin;
+    height: 3vmin;
+    background: transparent;
+    border-top: 1vmin solid white;
+    border-right: 1vmin solid white;
+    box-shadow: 0 0 0 lightgray;
+    transition: all 200ms ease;
+
+    &.left {
+      margin-left: 80px;
+      left: 0;
+      transform: translate3d(0, -50%, 0) rotate(-135deg);
+    }
+
+    &.right {
+      margin-right: 80px;
+      right: 0;
+      transform: translate3d(0, -50%, 0) rotate(45deg);
+    }
+
+    &:hover {
+      border-color: orange;
+      box-shadow: 0.5vmin -0.5vmin 0 white;
+    }
+  }
+  .note {
+    margin-top: 20px;
+    color: white;
+    text-align: center;
+    font-size: 12px;
   }
 }

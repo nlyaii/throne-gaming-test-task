@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
     imageObject: any = []
     isModalVisible: boolean = false
     count: number;
+    isFullSize: boolean = false
     subscription;
     private imageList:any = images
 
@@ -60,6 +61,11 @@ export class AppComponent implements OnInit {
         });
     }
 
+    public openImageByCounter(currentCounter){
+        this.isFullSize = true
+        return this.imageObject[currentCounter]
+    }
+
     //actions
     static INCREMENT = 'INCREMENT';
     static DECREMENT = 'DECREMENT';
@@ -70,10 +76,8 @@ export class AppComponent implements OnInit {
     revert() {this.ngRedux.dispatch({ type: 'REVERT' });}
 
     //main get image method
-    getImage(url) {
-        this.http.get(url, {
-            responseType: ResponseContentType.Blob
-        })
+    async getImage(url) {
+        this.http.get(url, {responseType: ResponseContentType.Blob})
             .toPromise()
             .then((res: any) => {
                 let blob = new Blob([res._body], {
@@ -81,6 +85,7 @@ export class AppComponent implements OnInit {
                 });
 
                 let urlCreator = window.URL;
+
                 this.imageData = this.sanitizer.bypassSecurityTrustUrl(
                     urlCreator.createObjectURL(blob));
                 this.imageObject.push(this.imageData)
@@ -91,4 +96,6 @@ export class AppComponent implements OnInit {
     //helpers
     public countIsZero(){return this.count === 0}
     public toggleModal():void {this.isModalVisible = !this.isModalVisible;}
+    public toggleFullSize():void {
+        this.isFullSize = !this.isFullSize;}
 }

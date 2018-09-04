@@ -12,11 +12,12 @@
     </div>
 
     <div *ngIf="isModalVisible">
-        <div id="galleryModal" class="modal">
-            <img [src]='getImageSrc()' class="modal-content" id="img01">
-            <button (keypress)="onKeyDecrement(event)" [disabled]="countIsZero()" class="previous" (click)="decrement()">&lt;</button>
-            <button (keyup)="increment()" class="next" (click)="increment()">&gt;</button>
+        <div  id="galleryModal" class="modal">
+            <img (click)="toggleFullSize()" [ngClass]="isFullSize ? 'fullscreen' : ''" [src]='getImageSrc()' class="modal-content">
+            <button [disabled]="countIsZero()" class="arrow left previous" (click)="decrement()"></button>
+            <button (keyup)="increment()" class="arrow right next" (click)="increment()"></button>
             <span class="close" (click)="toggleModal()" >&times;</span>
+            <div class="note">Click on image to view full screen</div>
         </div>
     </div>
 
