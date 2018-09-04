@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {ResponseContentType, Http} from "@angular/http";
 import {DomSanitizer} from '@angular/platform-browser';
 import 'rxjs/add/operator/toPromise';
 import {NgRedux} from "@angular-redux/store";
 import {IAppState} from "../store";
+import {images} from './test-object'
 
 
 @Component({
@@ -17,48 +18,44 @@ export class AppComponent implements OnInit {
     imageObject: any = []
     isModalVisible: boolean = false
     count: number;
-
-    private images: any = [
-        {
-            url: "https://images.pexels.com/photos/669013/pexels-photo-669013.jpeg?w=1260"
-        },
-        {
-            url: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=1260"
-        },
-        {
-            url: "https://images.pexels.com/photos/669013/pexels-photo-669013.jpeg?w=1260"
-        },
-        {
-            url: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=1260"
-        },
-        {
-            url: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=1260"
-        },
-        {
-            url: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=1260"
-        },
-        {
-            url: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=1260"
-        },
-    ]
     subscription;
+    private imageList:any = images
 
-    constructor(private http: Http, private sanitizer: DomSanitizer, private ngRedux: NgRedux<IAppState>) {
+    constructor(private http: Http, private sanitizer: DomSanitizer, private ngRedux: NgRedux<IAppState>, ) {
         this.subscription = ngRedux.select<number>('imageCount')
             .subscribe(newCount => this.count = newCount);
-        console.log(this.count)
     }
 
-    //gets the list of images
+    //fetch the list of images
     ngOnInit() {this.getList()}
 
-    public toggleModal() {
-        this.isModalVisible = !this.isModalVisible;
+    //keyboar hostlistener
+    @HostListener('window:keydown', ['$event'])
+    handleKeyDown(event: KeyboardEvent) {
+        switch(event.code) {
+            case 'ArrowRight':
+                return this.increment()
+            case 'ArrowLeft':
+                if(this.countIsZero){
+                    return this.revert()
+                }
+                return this.decrement()
+            case 'default':
+                return this.increment()
+        }
     }
 
-    //testing the object looping
+    public getImageSrc(){
+        if(this.count === this.imageObject.length){
+            this.revert()
+        }
+        return this.imageObject[this.count]
+    }
+
+
+    //object looping
     public getList(): void {
-        this.images.forEach(eachObj => {
+        this.imageList.forEach(eachObj => {
             this.getImage(eachObj.url)
         });
     }
@@ -66,15 +63,11 @@ export class AppComponent implements OnInit {
     //actions
     static INCREMENT = 'INCREMENT';
     static DECREMENT = 'DECREMENT';
+    static REVERT = 'REVERT';
 
-    increment() {
-        console.log(this.count)
-        this.ngRedux.dispatch( { type: 'INCREMENT' });
-    }
-
-    decrement() {
-        this.ngRedux.dispatch({ type: 'DECREMENT' });
-    }
+    increment() {this.ngRedux.dispatch( { type: 'INCREMENT' });}
+    decrement() {this.ngRedux.dispatch({ type: 'DECREMENT' });}
+    revert() {this.ngRedux.dispatch({ type: 'REVERT' });}
 
     //main get image method
     getImage(url) {
@@ -92,5 +85,10 @@ export class AppComponent implements OnInit {
                     urlCreator.createObjectURL(blob));
                 this.imageObject.push(this.imageData)
             });
+
     }
+
+    //helpers
+    public countIsZero(){return this.count === 0}
+    public toggleModal():void {this.isModalVisible = !this.isModalVisible;}
 }

@@ -11,8 +11,9 @@ export function rootReducer(lastState: IAppState, action): IAppState {
             return { imageCount: lastState.imageCount + 1 };
         case 'DECREMENT':
             return { imageCount: lastState.imageCount - 1 };
+        case 'REVERT':
+            return {imageCount: lastState.imageCount = 0}
     }
 
-    console.log('check-check',lastState)
     return lastState;
 }
